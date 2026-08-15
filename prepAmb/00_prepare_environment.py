@@ -111,7 +111,7 @@ display(
 
 
 spark.sql("""
-CREATE CATALOG worldcup_dev
+CREATE CATALOG IF NOT EXISTS worldcup_dev
 MANAGED LOCATION 'abfss://bronze-dev@stworldcupanalytics.dfs.core.windows.net/'
 """)
 

@@ -4,63 +4,6 @@ from pyspark.sql.functions import *
 
 # COMMAND ----------
 
-display(
-    dbutils.fs.ls(raw_path)
-)
-
-# COMMAND ----------
-
-# COMMAND ----------
-# Test file read
-
-test_df = (
-    spark.read
-        .option("header", "true")
-        .csv(
-            f"{raw_path}Player_Standard_Stats2026_WorldCup.csv"
-        )
-)
-
-display(test_df.limit(10))
-
-print(
-    f"Rows: {test_df.count()}"
-)
-
-# COMMAND ----------
-
-df = (
-    spark.read
-        .option("header", "true")
-        .option("inferSchema", "false")
-        .csv(
-            f"{raw_path}Player_Standard_Stats2026_WorldCup.csv"
-        )
-        .withColumn(
-            "LoadDate",
-            current_timestamp()
-        )
-)
-
-display(df.limit(10))
-
-# COMMAND ----------
-
-(
-    df.write
-        .format("delta")
-        .mode("overwrite")
-        .option(
-            "path",
-            f"{bronze_path}player_standard_stats2026_worldcup"
-        )
-        .saveAsTable(
-            f"{catalog_name}.bronze.player_standard_stats2026_worldcup"
-        )
-)
-
-# COMMAND ----------
-
 
 
 
