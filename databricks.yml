@@ -1,0 +1,29 @@
+bundle:
+  name: worldcup_analytics_medallion_platform
+
+include:
+  - resources/*.yml
+
+variables:
+  storage_account:
+    default: stworldcupanalytics
+
+  environment:
+    default: dev
+
+targets:
+  dev:
+    mode: development
+    variables:
+      environment: dev
+      storage_account: stworldcupanalytics
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/dev
+
+  prod:
+    mode: production
+    variables:
+      environment: prod
+      storage_account: stworldcupanalytics
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/prod
